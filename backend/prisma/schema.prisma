@@ -1,0 +1,75 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Category Model
+model categories {
+  id             String   @id @default(uuid()) @db.Uuid
+  category_name  String   @unique
+  created_at     DateTime @default(now())
+  updated_at     DateTime? @updatedAt
+  products       product[]
+}
+
+model masterbox {
+  master_box_id          String   @id @default(uuid()) @db.Uuid
+  master_box_name        String?  @unique
+  scale_box              String? 
+  height                 Float?  
+  length                 Float?  
+  width                  Float?  
+  cubic_centimeter_box    Float?
+  create_by              String?  
+  create_date            DateTime @default(now())
+  update_by              String?  
+  update_date            DateTime? @updatedAt
+  description            String?  
+  image                  String?  
+}
+
+
+model msproduct{
+  master_product_id String @id @default(uuid()) @db.Uuid
+  master_product_name String?
+  scale_product String?
+  height Float?
+  length Float?
+  width Float?
+  cubic_centimeter_product Float?
+  create_by String?
+  create_date DateTime @default(now())
+  update_by String?
+  update_date DateTime? @updatedAt
+  description String?
+  image String?
+}
+
+// Product Model
+model product {
+  id            String   @id @default(uuid()) @db.Uuid
+  product_name  String
+  price         Float
+  category_id   String  @db.Uuid
+  created_at    DateTime @default(now())
+  updated_at    DateTime? @updatedAt
+  category      categories @relation(fields: [category_id], references: [id])
+}
+
+model user {
+  users_id String @id @default(uuid()) @db.Uuid
+  fullname String?
+  age Int
+  address String
+  username String
+  password String
+  status_role String
+  create_date DateTime @default(now())
+  create_by String
+  update_by String
+  update_date DateTime? @updatedAt
+}
