@@ -33,20 +33,20 @@ model masterbox {
 }
 
 
-model msproduct{
-  master_product_id String @id @default(uuid()) @db.Uuid
-  master_product_name String?
-  scale_product String?
-  height Float?
-  length Float?
-  width Float?
-  cubic_centimeter_product Float?
-  create_by String?
-  create_date DateTime @default(now())
-  update_by String?
-  update_date DateTime? @updatedAt
-  description String?
-  image String?
+model masterproduct{
+  master_product_id         String @id @default(uuid()) @db.Uuid
+  master_product_name       String?
+  scale_product             String?
+  height                    Float?
+  length                    Float?
+  width                     Float?
+  cubic_centimeter_product  Float?
+  create_by                 String?
+  create_date               DateTime @default(now())
+  update_by                 String?
+  update_date               DateTime? @updatedAt
+  description               String?
+  image                     String?
 }
 
 // Product Model
@@ -60,16 +60,33 @@ model product {
   category      categories @relation(fields: [category_id], references: [id])
 }
 
-model user {
+model users {
   users_id String @id @default(uuid()) @db.Uuid
   fullname String?
   age Int
-  address String
+  address String?
   username String
   password String
-  status_role String
+  status_role String?
   create_date DateTime @default(now())
-  create_by String
-  update_by String
+  create_by String?
+  update_by String?
+  update_date DateTime @updatedAt
+}
+
+model cal_msbox {
+  cal_box_id String @id() @default(uuid()) @db.Uuid
+  document_box_id String?
+  cal_box_name String
+  scale_product String
+  height Float
+  lenght Float
+  width Float
+  sum_volume Float?
+  cubic_centimeter_calbox Float?
+  create_by String?
+  create_date DateTime? @default(now())
+  update_by String?
   update_date DateTime? @updatedAt
+  sort_by Int?
 }

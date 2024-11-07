@@ -1,9 +1,9 @@
-import { user } from './../../../node_modules/.prisma/client/index.d';
+import { users } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
-import {ResponseStatus,ServiceResponse} from "@common/models/serviceResponse";
+import { ResponseStatus, ServiceResponse } from "@common/models/serviceResponse";
 import { userRepository } from "@modules/user/userRepository";
 import { TypePayloaduser } from "@modules/user/userModel";
-import { masterbox } from "@prisma/client";
+import errorMap from 'zod/lib/locales/en';
 
 export const userService = {
   findAll: async () => {
@@ -15,26 +15,27 @@ export const userService = {
       StatusCodes.OK
     );
   },
+
   create: async (payload: TypePayloaduser) => {
     try {
-      const checkCategory = await userRepository.findByName(payload.fullname);
-      if (checkCategory) {
+      const checkuser = await userRepository.findByName(payload.fullname);
+      if (checkuser) {
         return new ServiceResponse(
           ResponseStatus.Failed,
-          "Category already taken",
+          "User already taken",
           null,
           StatusCodes.BAD_REQUEST
         );
       }
-      const users = await userRepository.create(payload);
-      return new ServiceResponse<user>(
+      const user = await userRepository.create(payload);
+      return new ServiceResponse<users>(
         ResponseStatus.Success,
-        "Create category success",
-        users,
+        "Create user success",
+        user,
         StatusCodes.OK
       );
     } catch (ex) {
-      const errorMessage = "Error create category :" + (ex as Error).message;
+      const errorMessage = "Error create user :" + (ex as Error).message;
       return new ServiceResponse(
         ResponseStatus.Failed,
         errorMessage,
@@ -44,17 +45,17 @@ export const userService = {
     }
   },
 
-  update: async (users_id: string,payload: Partial<TypePayloaduser>) => {
+  update: async (users_id: string, payload: Partial<TypePayloaduser>) => {
     try {
       const users = await userRepository.update(users_id, payload);
-      return new ServiceResponse<user>(
+      return new ServiceResponse<users>(
         ResponseStatus.Success,
-        "Update category success",
+        "Update users success",
         users,
         StatusCodes.OK
       );
     } catch (ex) {
-      const errorMessage = "Error update category :" + (ex as Error).message;
+      const errorMessage = "Error Update Users :" + (ex as Error).message;
       return new ServiceResponse(
         ResponseStatus.Failed,
         errorMessage,
@@ -64,23 +65,24 @@ export const userService = {
     }
   },
 
-  delete: async (users_id: any) => {
+  delete: async (users_id: string) => {
     try {
       await userRepository.delete(users_id);
       return new ServiceResponse(
         ResponseStatus.Success,
-        "Delete Box success",
+        "Delete users success",
         null,
         StatusCodes.OK
       );
     } catch (ex) {
-      const errorMessage = "Error update category :" + (ex as Error).message;
+      const ErrorMessage = "Error Delete User" + (ex as Error).message;
       return new ServiceResponse(
         ResponseStatus.Failed,
-        errorMessage,
+        ErrorMessage,
         null,
         StatusCodes.INTERNAL_SERVER_ERROR
-      );
+      )
     }
   },
+
 };

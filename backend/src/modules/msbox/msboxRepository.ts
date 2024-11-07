@@ -1,5 +1,5 @@
 import { masterbox } from "@prisma/client";
-import prisma from "@src/db"; 
+import prisma from "@src/db";
 import { TypePayloadmasterbox } from "@modules/msbox/msboxModel";
 
 export const Keys = [
@@ -73,8 +73,9 @@ export const msboxRepository = {
     });
   },
 
-  update: async (master_box_id: string,payload: Partial<TypePayloadmasterbox>) => {
-    const updatedPayload = {...payload,master_box_id: payload.master_box_id? String(payload.master_box_id): undefined,
+  update: async (master_box_id: string, payload: Partial<TypePayloadmasterbox>) => {
+    const updatedPayload = {
+      ...payload, master_box_id: payload.master_box_id ? String(payload.master_box_id) : undefined,
     };
 
     return await prisma.masterbox.update({

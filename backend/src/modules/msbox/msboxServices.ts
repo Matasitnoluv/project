@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import {ResponseStatus,ServiceResponse} from "@common/models/serviceResponse";
+import { ResponseStatus, ServiceResponse } from "@common/models/serviceResponse";
 import { msboxRepository } from "@modules/msbox/msboxRepository";
 import { TypePayloadmasterbox } from "@modules/msbox/msboxModel";
 import { masterbox } from "@prisma/client";
@@ -16,24 +16,24 @@ export const msboxService = {
   },
   create: async (payload: TypePayloadmasterbox) => {
     try {
-      const checkCategory = await msboxRepository.findByName(payload.master_box_name);
-      if (checkCategory) {
+      const checkMasterbox = await msboxRepository.findByName(payload.master_box_name);
+      if (checkMasterbox) {
         return new ServiceResponse(
           ResponseStatus.Failed,
-          "Category already taken",
+          "Masterbox already taken",
           null,
           StatusCodes.BAD_REQUEST
         );
       }
-      const category = await msboxRepository.create(payload);
+      const masterbox = await msboxRepository.create(payload);
       return new ServiceResponse<masterbox>(
         ResponseStatus.Success,
-        "Create category success",
-        category,
+        "Create Masterbox success",
+        masterbox,
         StatusCodes.OK
       );
     } catch (ex) {
-      const errorMessage = "Error create category :" + (ex as Error).message;
+      const errorMessage = "Error create masterbox :" + (ex as Error).message;
       return new ServiceResponse(
         ResponseStatus.Failed,
         errorMessage,
@@ -43,17 +43,17 @@ export const msboxService = {
     }
   },
 
-  update: async (master_box_id: string,payload: Partial<TypePayloadmasterbox>) => {
+  update: async (master_box_id: string, payload: Partial<TypePayloadmasterbox>) => {
     try {
       const masterbox = await msboxRepository.update(master_box_id, payload);
       return new ServiceResponse<masterbox>(
         ResponseStatus.Success,
-        "Update category success",
+        "Update masterbox success",
         masterbox,
         StatusCodes.OK
       );
     } catch (ex) {
-      const errorMessage = "Error update category :" + (ex as Error).message;
+      const errorMessage = "Error update masterbox :" + (ex as Error).message;
       return new ServiceResponse(
         ResponseStatus.Failed,
         errorMessage,
@@ -73,7 +73,7 @@ export const msboxService = {
         StatusCodes.OK
       );
     } catch (ex) {
-      const errorMessage = "Error update category :" + (ex as Error).message;
+      const errorMessage = "Error Delete Box :" + (ex as Error).message;
       return new ServiceResponse(
         ResponseStatus.Failed,
         errorMessage,

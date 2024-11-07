@@ -15,18 +15,18 @@ enum TokenType {
 }
 
 // User Model
-model user {
-  user_id   String   @id() @default(uuid()) @db.Uuid
-  username String   @unique
+model users {
+  users_id String @id @default(uuid()) @db.Uuid
+  fullname String?
+  age Int
+  address String
+  username String
   password String
-  role     String
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-  categoriesCreated  categories[] @relation("categoriesCreatedBy") 
-  categoriesUpdated  categories[] @relation("CategoriesupdatedBy") 
-  productsCreated  product[] @relation("productsCreatedBy") 
-  productsUpdated  product[] @relation("productsUpdatedBy") 
-  token        token[]      @relation(name: "token")
+  status_role String
+  create_date DateTime @default(now())
+  create_by String
+  update_by String
+  update_date DateTime @updatedAt
 }
 
 // Token Model
@@ -45,7 +45,6 @@ model token {
     created_at              DateTime  @default(now())
     updated_at              DateTime?  @updatedAt()
 
-    user user? @relation(name: "token", fields: [created_by], references: [user_id])
 }
 
 // Category Model
@@ -57,8 +56,6 @@ model categories {
   updated_at     DateTime? @updatedAt
   updated_by     String?  @db.Uuid
   products       product[]
-  categoriesCreated user  @relation("categoriesCreatedBy", fields: [created_by], references: [user_id])
-  categoriesUpdated user? @relation("CategoriesupdatedBy", fields: [updated_by], references: [user_id])
 }
 
 model master_box {
@@ -69,6 +66,22 @@ model master_box {
   length Float?
   width Float?
   cubic_centimeter_box Float?
+  create_by String?
+  create_date DateTime @default(now())
+  update_by String?
+  update_date DateTime? @updatedAt
+  description String?
+  image String?
+}
+
+model master_product {
+  master_product_id String @id @default(uuid()) @db.Uuid
+  master_product_name String? @unique
+  scale_product String?
+  height Float?
+  length Float?
+  width Float?
+  cubic_centimeter_product Float?
   create_by String?
   create_date DateTime @default(now())
   update_by String?
@@ -87,7 +100,22 @@ model product {
   updated_at    DateTime? @updatedAt
   updated_by    String?  @db.Uuid
   category      categories @relation(fields: [category_id], references: [id], onDelete: Cascade)
-  productsCreated user   @relation("productsCreatedBy", fields: [created_by], references: [user_id])
-  productsUpdated user?  @relation("productsUpdatedBy", fields: [updated_by], references: [user_id])
+}
+
+model cal_msbox {
+  cal_box_id String @id() @default(uuid()) @db.Uuid
+  document_box_id String?
+  cal_box_name String?
+  scale_product String?
+  height Float
+  lenght Float
+  width Float
+  sum_volume Float
+  cubic_centimeter_calbox Float?
+  create_by String?
+  create_date DateTime @default(now())
+  update_by String?
+  update_date DateTime? @updatedAt
+  sort_by Int?
 }
 

@@ -11,6 +11,8 @@ import errorHandler from "@common/middleware/errorHandler";
 import { categoryRouter } from "@modules/categories/categoryRouter";
 import { msboxRouter } from "@modules/msbox/msboxRouter";
 import { userRouter } from "@modules/user/userRouter";
+import { msproductRouter } from "@modules/msproduct/msproductRouter";
+import { cal_msboxRouter } from "@modules/cal_msbox/cal_msboxRouter";
 
 const prisma = new PrismaClient();
 const logger = pino({ name: "server start" });
@@ -26,8 +28,9 @@ app.use(helmet());
 // Routes
 app.use("/v1/category", categoryRouter);
 app.use("/v1/msbox", msboxRouter);
-app.use("/v1/users", userRouter)
-
+app.use("/v1/users", userRouter);
+app.use("/v1/msproduct", msproductRouter);
+app.use("/v1/cal_msbox", cal_msboxRouter);
 
 // Error handlers
 app.use(errorHandler());

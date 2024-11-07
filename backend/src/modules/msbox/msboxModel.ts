@@ -29,7 +29,7 @@ export const CreateMsboxSchema = z.object({
   }),
 });
 
-export const updateMsboxSchema = z.object({
+export const UpdateMsboxSchema = z.object({
   body: z.object({
     master_box_id: z.string(),
     master_box_name: z.string().max(50),
@@ -45,7 +45,7 @@ export const updateMsboxSchema = z.object({
   }),
 });
 
-export const deleteMsboxSchema = z.object({
+export const DeleteMsboxSchema = z.object({
   params: z.object({
     master_box_id: z.string(),
   }),

@@ -1,91 +1,76 @@
-import { masterbox } from "@prisma/client";
-import prisma from "@src/db"; // Ensure this is your Prisma client instance
-import { TypePayloadmasterbox } from "@modules/categories/categoryModel";
+import { categories } from "@prisma/client";
+import prisma from "@src/db";
+
+import { TypePayloadCategory } from "@modules/categories/categoryModel";
 
 export const Keys = [
-  "master_box_id",
-  "master_box_name",
-  "scale_box",
-  "height",
-  "length",
-  "width",
-  "cubic_centimeter_box",
-  "create_by",
-  "update_by",
-  "update_date",
-  "description",
-  "image",
+    "id", 
+    "category_name", 
+    "created_at", 
+    "updated_at"
 ];
 
 export const categoryRepository = {
-  findAllAsync: async () => {
-    return prisma.masterbox.findMany({
-      select: {
-        master_box_id: true,
-        master_box_name: true,
-        scale_box: true,
-        height: true,
-        length: true,
-        width: true,
-        cubic_centimeter_box: true,
-        create_by: true,
-        create_date: true,
-        update_by: true,
-        update_date: true,
-        description: true,
-        image: true,
-      },
-    });
-  },
+    findAllAsync: async () => {
+        return prisma.categories.findMany({
+            select: {
+                category_name: true,
+                id: true
+            }
+        })  
+    },
 
-  findByName: async <Key extends keyof masterbox>(
-    master_box_name: string,
-    keys = Keys as Key[]
-  ): Promise<Pick<masterbox, Key> | null> => {
-    const selectedFields = keys.reduce(
-      (obj, k) => ({ ...obj, [k]: true }),
-      {} as Record<Key, true>
-    );
+    findByName: async <Key extends keyof categories>(
+        category_name: string,
+        keys = Keys as Key[]
+    ) => {
+        return prisma.categories.findUnique({
+            where: {category_name: category_name},
+            select: keys.reduce(( obj, k) => ({...obj, [k]: true}), {}),
+        }) as Promise<Pick<categories, Key> | null>;
+    },
 
-    const result = await prisma.masterbox.findFirst({
-      where: { master_box_name: master_box_name },
-      select: selectedFields,
-    });
+    create: async (payload: TypePayloadCategory) => {
+        const category_name = payload.category_name.trim();
+        const setPayload: any = {
+            category_name: category_name,
+        };
 
-    return result as Pick<masterbox, Key> | null;
-  },
+        return await prisma.categories.create({
+            data: setPayload,
+        })
+    },
 
-  create: async (payload: TypePayloadmasterbox) => {
-    const master_box_name = payload.master_box_name.trim();
-    const setPayload: any = {
-      master_box_name: master_box_name,
-      scale_box: payload.scale_box,
-      height: payload.height, // Corrected typo from `height` to `height`
-      length: payload.length, // Corrected typo from `length` to `length`
-      width: payload.width, // Corrected typo from `width` to `width`
-      cubic_centimeter_box: payload.cubic_centimeter_box,
-      description: payload.description,
-      image: payload.image,
-    };
+    findByIdAsync: async <Key extends keyof categories> (
+        id: string,
+        keys = Keys as Key[]
+    ) => {
+        return await prisma.categories.findUnique({
+            where: {id: id},
+            select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+        }) as Promise<Pick<categories, Key> | null>;
+    },
 
-    return await prisma.masterbox.create({
-      data: setPayload,
-    });
-  },
+    update: async(
+        id: string,
+        payload: TypePayloadCategory
+    ) => {
+        const trimId = id.trim();
+        const trimCategoryName = payload.category_name.trim();
+        const setPayload: any = {
+            category_name: trimCategoryName,
+        }
+        return await prisma.categories.update({
+            where: {id: trimId},
+            data: setPayload,
+        }) 
+    },
 
-  update: async (master_box_id: string,payload: Partial<TypePayloadmasterbox>) => {
-    const updatedPayload = {...payload,master_box_id: payload.master_box_id? String(payload.master_box_id): undefined,
-    };
-
-    return await prisma.masterbox.update({
-      where: { master_box_id: master_box_id },
-      data: updatedPayload,
-    });
-  },
-
-  delete: async (master_box_id: string) => {
-    return await prisma.masterbox.delete({
-      where: { master_box_id: master_box_id },
-    });
-  },
+    delete: async (id: string) => {
+        const trimId = id.trim();
+        return await prisma.categories.delete({
+            where: {id: trimId}
+        }) 
+    }
 };
+

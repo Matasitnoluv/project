@@ -1,52 +1,33 @@
+import { commonValidations } from "@common/utils/commonValidation";
 import { z } from "zod";
 
-export type TypePayloadmasterbox = {
-  master_box_id: number;
-  master_box_name: string;
-  scale_box: string;
-  height: number;
-  length: number;
-  width: number;
-  cubic_centimeter_box: number;
-  create_by: string;
-  create_date: string;
-  update_by: string;
-  update_date: string;
-  description: string;
-  image: string;
+export type TypePayloadCategory = {
+    category_name: string;
 };
 
+
 export const CreateCategorySchema = z.object({
-  body: z.object({
-    master_box_name: z.string().max(50),
-    scale_box: z.string(),
-    height: z.number(),
-    length: z.number(),
-    width: z.number(),
-    cubic_centimeter_box: z.number(),
-    description: z.string(),
-    image: z.string(),
-  }),
+    body: z.object({
+        category_name: z.string().max(50),
+    })
 });
 
-export const updatecategory_name = z.object({
-  body: z.object({
-    master_box_id: z.string(),
-    master_box_name: z.string().max(50),
-    scale_box: z.string(),
-    height: z.number(),
-    length: z.number(),
-    width: z.number(),
-    cubic_centimeter_box: z.number(),
-    update_by: z.string(),
-    update_date: z.string(),
-    description: z.string(),
-    image: z.string(),
-  }),
+export const UpdateCategorySchema = z.object({
+    body: z.object({
+        id: z.string().uuid(),
+        category_name: z.string().max(50),
+    })
 });
 
-export const daleteprojetSchema = z.object({
-  params: z.object({
-    master_box_id: z.string(),
-  }),
+export const GetCategorySchema = z.object({
+    params: z.object({
+        id: commonValidations.uuid, 
+    })
 });
+
+export const GetParamCategorySchema = z.object({
+    params: z.object({
+        id: commonValidations.uuid, 
+    })
+});
+
