@@ -90,3 +90,21 @@ model cal_msbox {
   update_date DateTime? @updatedAt
   sort_by Int?
 }
+
+model cal_msproduct {
+    cal_product_id String @id() @default(uuid()) @db.Uuid
+    document_product_id String?
+    cal_product_name String
+    scale_product String
+    height Float
+    length Float
+    width Float
+    sum_volume Float
+    cubic_centimeter_calproduct Float
+    create_by String?
+    create_date DateTime? @default(now())
+    update_by String?
+    update_date DateTime? @updatedAt
+    count Int?
+    sort_by Int?
+}

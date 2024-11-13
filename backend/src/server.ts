@@ -13,6 +13,7 @@ import { msboxRouter } from "@modules/msbox/msboxRouter";
 import { userRouter } from "@modules/user/userRouter";
 import { msproductRouter } from "@modules/msproduct/msproductRouter";
 import { cal_msboxRouter } from "@modules/cal_msbox/cal_msboxRouter";
+import { cal_msproductRouter } from "@modules/cal_msproduct/cal_msproductRouter";
 
 const prisma = new PrismaClient();
 const logger = pino({ name: "server start" });
@@ -31,6 +32,7 @@ app.use("/v1/msbox", msboxRouter);
 app.use("/v1/users", userRouter);
 app.use("/v1/msproduct", msproductRouter);
 app.use("/v1/cal_msbox", cal_msboxRouter);
+app.use("/v1/cal_msproduct", cal_msproductRouter);
 
 // Error handlers
 app.use(errorHandler());
