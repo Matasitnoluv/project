@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/index.js | pino-pretty",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed"
   },
   "prisma": {
-    "seed": "ts-node -r tsconfig-paths/register prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +31,7 @@
     "object-hash": "^3.0.0",
     "pino": "^9.4.0",
     "prettier": "^3.3.3",
-    "prisma": "^5.20.0",
+    "prisma": "^5.22.0",
     "prisma-pagination": "^0.2.3",
     "redis": "^4.7.0",
     "supertest": "^7.0.0",
