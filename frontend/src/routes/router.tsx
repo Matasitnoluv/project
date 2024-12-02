@@ -3,16 +3,17 @@ import MainLayout from "@/components/layouts/layout.main";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CategoriesPage from "@/pages/categories";
 import Formlogin from "@/pages/login";
+import MsproductFeature from "@/features/msproduct";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
         children: [
-          {
-            index: true,
-            element: <HomePage />,
-          },
+            {
+                index: true,
+                element: <HomePage />,
+            },
         ],
     },
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Formlogin />,
+    },
+    {
+        path: "/msproduct",
+        element: <MsproductFeature />,
     },
 ])
 

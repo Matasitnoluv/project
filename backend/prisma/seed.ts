@@ -12,7 +12,6 @@ async function main() {
         where: { users_id: 'rootadmin' },  // ค้นหาจาก username
         update: {},  // ถ้าพบจะไม่อัปเดตข้อมูลเพิ่มเติม
         create: {
-            fullname: 'system',
             username: 'rootadmin',
             password: 'admin123',  // รหัสผ่านที่เข้ารหัส
             age: 10,
@@ -20,9 +19,9 @@ async function main() {
             status_role: 'adminid',  // อัปเดต role_id ให้ตรงกับ schema ของคุณ
             // สามารถเพิ่มฟิลด์อื่นๆ ตาม schema ของตาราง user
             create_by: 'system',    // ตัวอย่างค่าเริ่มต้น
-            create_date: 'system',
+            create_date: new Date(),
             update_by: 'system',
-            update_date: 'system',
+            update_date: new Date(),
         },
     });
 

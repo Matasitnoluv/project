@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  seed     = "ts-node prisma/seed.ts"
 }
 
 // Category Model
@@ -68,10 +69,10 @@ model users {
   username String
   password String
   status_role String?
-  create_date DateTime @default(now())
+  create_date DateTime? @default(now())
   create_by String?
   update_by String?
-  update_date DateTime @updatedAt
+  update_date DateTime? @updatedAt
 }
 
 model cal_msbox {

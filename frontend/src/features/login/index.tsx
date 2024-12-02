@@ -1,93 +1,74 @@
-import * as Form from "@radix-ui/react-form";
-import { useEffect,useState } from "react";
-import { getCategories } from "@/services/category.services";
-import { TypeCategoriesAll} from "@/types/response/reponse.category";
 
-export default function LoginFeature(){
-    const [categories,setCatgories] = useState<TypeCategoriesAll[]>([]);
+export default function LoginFeature() {
 
-    const getCategoriesData = () => {
-        getCategories().then((res) => {
-            console.log(res);
+	return (
+		<>
+			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
+					<img
+						alt="Your Company"
+						src="https://media.discordapp.net/attachments/1274988572679864412/1289996431712845905/Logo.png?ex=6744ae4c&is=67435ccc&hm=3ffde792c371b6988f6b0f7f2dfebbb4da9a785bf5b47629c3787eb349ca9da7&=&format=webp&quality=lossless"
+						className="mx-auto h-250 w-250"
+					/>
+					{/* <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+						Sign in to your account
+					</h2> */}
+				</div>
 
-            setCatgories(res.responseObject);
-        })
-    }
+				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+					<form action="#" method="POST" className="space-y-6">
+						<div>
+							<label htmlFor="text" className="block text-sm/6 font-medium text-gray-900">
+								Username
+							</label>
+							<div className="mt-2">
+								<input
+									id="text"
+									name="email"
+									type="email"
+									required
+									autoComplete="email"
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+								/>
+							</div>
+						</div>
 
-    useEffect(() => {
-        getCategoriesData();
-    }, []);
+						<div>
+							<div className="flex items-center justify-between">
+								<label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+									Password
+								</label>
+							</div>
+							<div className="mt-2">
+								<input
+									id="password"
+									name="password"
+									type="password"
+									required
+									autoComplete="current-password"
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+								/>
+							</div>
+						</div>
 
-    return (
-		<div className="container md:flex w-full">
-			<div className="w-1/2 ... ">
-			<div className="bg-scroll background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.avantauk.com%2Fthe-warehouse-setup-and-development-process%2F&psig=AOvVaw25K9vSxbyHQtY92w8wvFMO&ust=1731996400572000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJC61sOb5YkDFQAAAAAdAAAAABAJ)"></div>
+						<div>
+							<button
+								type="submit"
+								className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							>
+								Sign in
+							</button>
+						</div>
+					</form>
+
+					<p className="mt-10 text-center text-sm/6 text-gray-500">
+						Couldn't find your Account{' '}
+						<a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+							Register
+						</a>
+					</p>
+				</div>
 			</div>
-			<div className="w-1/2 ">
-			<Form.Root className="container w-80 pt-80">
-				<Form.Field className="mb-2.5 grid" name="email">
-					<div className="flex items-baseline justify-between">
-						<Form.Label>
-							Username
-						</Form.Label>
-						<Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-							Email
-						</Form.Label>
-						
-						<Form.Message
-							className="text-[13px] text-white opacity-80"
-							match="valueMissing"
-						>
-							Please enter your email
-						</Form.Message>
-						
-						<Form.Message
-							className="text-[13px] text-white opacity-80"
-							match="typeMismatch"
-						>
-							Please provide a valid email
-						</Form.Message>
-						
-					</div>
-					<Form.Control asChild>
-						<input
-							className="box-border inline-flex h-[35px] w-full appearance-none items-center justify-center rounded bg-blackA2 px-2.5 text-[15px] leading-none text-white shadow-[0_0_0_1px] shadow-blackA6 outline-none selection:bg-blackA6 selection:text-white hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black]"
-							type="email"
-							required
-						/>
-					</Form.Control>
-				</Form.Field>
-				<Form.Field className="mb-2.5 grid" name="question">
-					<div className="flex items-baseline justify-between">
-						<Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-							Question
-						</Form.Label>
-						<Form.Message
-							className="text-[13px] text-white opacity-80"
-							match="valueMissing"
-						>
-							Please enter a question
-						</Form.Message>
-					</div>
-					<Form.Label>
-							Password
-						</Form.Label>
-					<Form.Control asChild>
-					<input
-							className="box-border inline-flex h-[35px] w-full appearance-none items-center justify-center rounded bg-blackA2 px-2.5 text-[15px] leading-none text-white shadow-[0_0_0_1px] shadow-blackA6 outline-none selection:bg-blackA6 selection:text-white hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black]"
-							type="email"
-							required
-						/>
-					</Form.Control>
-				</Form.Field>
-				<Form.Submit asChild>
-					<button className="mt-2.5 box-border inline-flex h-[35px] w-full items-center justify-center rounded bg-white px-[15px] font-medium leading-none text-violet11 shadow-[0_2px_10px] shadow-blackA4 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
-						Post question
-					</button>
-				</Form.Submit>
-			</Form.Root>
-			</div>
-		</div>
-        
-    )
+		</>
+	)
 }
