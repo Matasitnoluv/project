@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CategoriesPage from "@/pages/categories";
 import Formlogin from "@/pages/login";
 import MsproductFeature from "@/features/msproduct";
+import MsboxFeature from "@/features/msbox";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,14 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HomePage />,
             },
+            {
+                path: "/msproduct",
+                element: <MsproductFeature />,
+            },
+            {
+                path: "/msbox",
+                element: <MsboxFeature />,
+            },
         ],
     },
     {
@@ -23,10 +32,6 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Formlogin />,
-    },
-    {
-        path: "/msproduct",
-        element: <MsproductFeature />,
     },
 ])
 

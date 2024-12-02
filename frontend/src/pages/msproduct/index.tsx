@@ -1,5 +1,5 @@
 import MsproductFeature from "@/features/msproduct";
 
-export default function Formlogin() {
+export default function Msproduct() {
     return <MsproductFeature />;
 }

@@ -1,12 +1,12 @@
 import { Table, Card, Button, AlertDialog, Flex, Text, TextField } from "@radix-ui/themes";
 
-export default function MsproductFeature() {
+export default function MsboxFeature() {
     return (
         <>
             <div className="">
 
                 <div className="flex flex-row w-1/2 m-auto p-14">
-                    <div className="basis-1/4">Report product </div>
+                    <div className="basis-1/4">Report Box </div>
 
                     <div className="basis-1/2 ">
                         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
@@ -43,7 +43,7 @@ export default function MsproductFeature() {
                                 <Flex direction="column" gap="3">
                                     <label>
                                         <Text as="div" size="7" mb="5" weight="bold">
-                                            Create product
+                                            Create Box
                                         </Text>
                                     </label>
                                     <label>
