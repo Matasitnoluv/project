@@ -1,6 +1,23 @@
-import { Table, Card, Button, AlertDialog, Flex, Text, TextField } from "@radix-ui/themes";
+import { Table, Card, AlertDialog, Text, } from "@radix-ui/themes";
+import { useEffect, useState } from "react";
+import { getMsproduct } from "@/services/msproduct.services";
+import { TypeMsproductAll } from "@/types/response/reponse.msproduct"
+import DialogAdd from "./components/dilogAddmsproduct";
+import DialogEdit from "./components/dilogEditmsproduct"
 
 export default function MsproductFeature() {
+    const [msproduct, setMsproduct] = useState<TypeMsproductAll[]>([]);
+    const getMsproductData = () => {
+        getMsproduct().then((res) => {
+            console.log(res);
+
+            setMsproduct(res.responseObject);
+        })
+    }
+    useEffect(() => {
+        getMsproductData();
+    }, []);
+
     return (
         <>
             <div className="">
@@ -36,79 +53,11 @@ export default function MsproductFeature() {
                     </div>
                     <div>
                         <AlertDialog.Root>
-                            <AlertDialog.Trigger>
-                                <Button className="basis-1/2 mx-10" color="green" variant="soft">Create</Button>
-                            </AlertDialog.Trigger>
-                            <AlertDialog.Content maxWidth="450px">
-                                <Flex direction="column" gap="3">
-                                    <label>
-                                        <Text as="div" size="7" mb="5" weight="bold">
-                                            Create product
-                                        </Text>
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Code product
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Code product"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Name product
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Name product"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Width
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Width"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Lenght
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Lenght"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Hight
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Hight"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Description
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Description"
-                                        />
-                                    </label>
-                                </Flex>
-
-                                <Flex gap="3" mt="4" justify="end">
-                                    <AlertDialog.Cancel>
-                                        <Button variant="soft" color="gray">
-                                            Cancel
-                                        </Button>
-                                    </AlertDialog.Cancel>
-                                    <AlertDialog.Action>
-                                        <Button variant="solid" color="green">
-                                            Save
-                                        </Button>
-                                    </AlertDialog.Action>
-                                </Flex>
-                            </AlertDialog.Content>
+                            <Text as="div" size="2" weight="bold" color="green">
+                                <DialogAdd
+                                    getMsproductData={getMsproductData}
+                                />
+                            </Text>
                         </AlertDialog.Root>
                     </div>
                 </div>
@@ -126,21 +75,30 @@ export default function MsproductFeature() {
                         </Table.Header>
 
                         <Table.Body>
-                            <Table.Row>
-                                <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                                <Table.Cell>danilo@example.com</Table.Cell>
-                                <Table.Cell>Developer</Table.Cell>
-                                <Table.Cell>Developer</Table.Cell>
-                                <Table.Cell>Developer</Table.Cell>
-                            </Table.Row>
+                            {msproduct && msproduct.map((msproduct: TypeMsproductAll) => (
+                                <Table.Row key={msproduct.master_product_id}>
+                                    <Table.RowHeaderCell>{msproduct.master_product_id}</Table.RowHeaderCell>
+                                    <Table.Cell>{msproduct.master_product_name}</Table.Cell>
+                                    <Table.Cell>{msproduct.scale_product}</Table.Cell>
+                                    <Table.Cell>{msproduct.cubic_centimeter_product}</Table.Cell>
+                                    {/* 
+                                    <Table.Cell>
+                                        <DialogEdit
+                                            getMsproductData={getMsproductData}
+                                            master_product_id={msproduct.master_product_id}
+                                            mster_product_name={msproduct.master_product_name}
+                                        />
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <AlertDialogDelete
+                                            getCategoriesData={getCategoriesData}
+                                            id={category.id}
+                                            category_name={category.category_name}
+                                        />
+                                    </Table.Cell> */}
+                                </Table.Row>
+                            ))}
 
-                            <Table.Row>
-                                <Table.RowHeaderCell className="bg-gray-100">Zahra Ambessa</Table.RowHeaderCell>
-                                <Table.Cell className="bg-gray-100">zahra@example.com</Table.Cell>
-                                <Table.Cell className="bg-gray-100">Admin</Table.Cell>
-                                <Table.Cell className="bg-gray-100">Developer</Table.Cell>
-                                <Table.Cell className="bg-gray-100">Developer</Table.Cell>
-                            </Table.Row>
 
                         </Table.Body>
                     </Table.Root>
