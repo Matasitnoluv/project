@@ -1,12 +1,30 @@
-import { Table, Card, Button, AlertDialog, Flex, Text, TextField } from "@radix-ui/themes";
+import { Table, Card, AlertDialog, Text, } from "@radix-ui/themes";
+import { useEffect, useState } from "react";
+import { getMsbox } from "@/services/msbox.services";
+import { TypeMsboxAll } from "@/types/response/reponse.msbox";
+import DialogAdd from "./components/dilogAddMsbox";
+import DialogEdit from "./components/dilogEditMsbox";
+import AlertDialogDelete from "./components/alertdilogDeleteMsbox";
 
 export default function MsboxFeature() {
+    const [msbox, setMsbox] = useState<TypeMsboxAll[]>([]);
+    const getMsboxData = () => {
+        getMsbox().then((res) => {
+            console.log(res);
+
+            setMsbox(res.responseObject)
+        })
+    }
+    useEffect(() => {
+        getMsboxData();
+    }, []);
+
     return (
         <>
             <div className="">
 
                 <div className="flex flex-row w-1/2 m-auto p-14">
-                    <div className="basis-1/4">Report Box </div>
+                    <div className="basis-1/4">Report box </div>
 
                     <div className="basis-1/2 ">
                         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
@@ -36,79 +54,11 @@ export default function MsboxFeature() {
                     </div>
                     <div>
                         <AlertDialog.Root>
-                            <AlertDialog.Trigger>
-                                <Button className="basis-1/2 mx-10" color="green" variant="soft">Create</Button>
-                            </AlertDialog.Trigger>
-                            <AlertDialog.Content maxWidth="450px">
-                                <Flex direction="column" gap="3">
-                                    <label>
-                                        <Text as="div" size="7" mb="5" weight="bold">
-                                            Create Box
-                                        </Text>
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Code product
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Code product"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Name product
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Name product"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Width
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Width"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Lenght
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Lenght"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Hight
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Hight"
-                                        />
-                                    </label>
-                                    <label>
-                                        <Text as="div" size="2" mb="1" weight="bold">
-                                            Description
-                                        </Text>
-                                        <TextField.Root
-                                            placeholder="Enter Description"
-                                        />
-                                    </label>
-                                </Flex>
-
-                                <Flex gap="3" mt="4" justify="end">
-                                    <AlertDialog.Cancel>
-                                        <Button variant="soft" color="gray">
-                                            Cancel
-                                        </Button>
-                                    </AlertDialog.Cancel>
-                                    <AlertDialog.Action>
-                                        <Button variant="solid" color="green">
-                                            Save
-                                        </Button>
-                                    </AlertDialog.Action>
-                                </Flex>
-                            </AlertDialog.Content>
+                            <Text as="div" size="2" weight="bold" color="green">
+                                <DialogAdd
+                                    getMsboxData={getMsboxData}
+                                />
+                            </Text>
                         </AlertDialog.Root>
                     </div>
                 </div>
@@ -117,30 +67,48 @@ export default function MsboxFeature() {
                     <Table.Root variant="ghost">
                         <Table.Header>
                             <Table.Row>
-                                <Table.ColumnHeaderCell>Code product</Table.ColumnHeaderCell>
-                                <Table.ColumnHeaderCell>Name product</Table.ColumnHeaderCell>
-                                <Table.ColumnHeaderCell>Scale product</Table.ColumnHeaderCell>
-                                <Table.ColumnHeaderCell>size product("cc")</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>Code box</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>Name box</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>Scale box</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>size box("cc")</Table.ColumnHeaderCell>
                                 <Table.ColumnHeaderCell>Edit</Table.ColumnHeaderCell>
                             </Table.Row>
                         </Table.Header>
 
                         <Table.Body>
-                            <Table.Row>
-                                <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                                <Table.Cell>danilo@example.com</Table.Cell>
-                                <Table.Cell>Developer</Table.Cell>
-                                <Table.Cell>Developer</Table.Cell>
-                                <Table.Cell>Developer</Table.Cell>
-                            </Table.Row>
+                            {msbox && msbox.map((msbox: TypeMsboxAll) => (
+                                <Table.Row key={msbox.master_box_id}>
+                                    <Table.RowHeaderCell>{msbox.master_box_id}</Table.RowHeaderCell>
+                                    <Table.Cell>{msbox.master_box_name}</Table.Cell>
+                                    <Table.Cell>{msbox.length} * {msbox.width} * {msbox.height}</Table.Cell>
+                                    <Table.Cell>{msbox.cubic_centimeter_box}</Table.Cell>
 
-                            <Table.Row>
-                                <Table.RowHeaderCell className="bg-gray-100">Zahra Ambessa</Table.RowHeaderCell>
-                                <Table.Cell className="bg-gray-100">zahra@example.com</Table.Cell>
-                                <Table.Cell className="bg-gray-100">Admin</Table.Cell>
-                                <Table.Cell className="bg-gray-100">Developer</Table.Cell>
-                                <Table.Cell className="bg-gray-100">Developer</Table.Cell>
-                            </Table.Row>
+                                    <Table.Cell>
+                                        <DialogEdit
+                                            getMsboxData={getMsboxData}
+                                            master_box_id={msbox.master_box_id}
+                                            master_box_name={msbox.master_box_name}
+                                            scale_box={msbox.scale_box}
+                                            height={msbox.height}
+                                            length={msbox.length}
+                                            width={msbox.width}
+                                            cubic_centimeter_box={msbox.cubic_centimeter_box}
+                                            update_by={msbox.create_by}
+                                            update_date={msbox.update_date}
+                                            description={msbox.description}
+                                            image={msbox.image}
+                                        />
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <AlertDialogDelete
+                                            getMsboxData={getMsboxData}
+                                            master_box_id={msbox.master_box_id}
+                                            master_box_name={msbox.master_box_id}
+                                        />
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))}
+
 
                         </Table.Body>
                     </Table.Root>

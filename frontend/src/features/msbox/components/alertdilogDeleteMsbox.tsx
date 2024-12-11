@@ -1,22 +1,21 @@
-import { deleteProduct } from "@/services/msproduct.services";
+import { deleteBox } from "@/services/msbox.services";
 import { Text, Dialog, Button, Flex, Strong } from "@radix-ui/themes";
 
-
-type DialogMsproductProps = {
-    getMsproductData: Function;
-    master_product_id: string;
-    master_product_name: string;
+type DialogMsboxProps = {
+    getMsboxData: Function;
+    master_box_id: string;
+    master_box_name: string;
 }
 
-const AlertDialogDelete = ({ getMsproductData, master_product_id, master_product_name }: DialogMsproductProps) => {
-    const handleDeleteMsproduct = async () => {
+const AlertDialogDelete = ({ getMsboxData, master_box_id, master_box_name }: DialogMsboxProps) => {
+    const handleDeleteMsbox = async () => {
         try {
-            await deleteProduct({
-                master_product_id: master_product_id,
+            await deleteBox({
+                master_box_id: master_box_id,
             })
                 .then((response) => {
                     if (response.statusCode === 200) {
-                        getMsproductData();
+                        getMsboxData();
                         window.location.reload();
                     } else if (response.statusCode === 400) {
                         alert(response.message);
@@ -31,7 +30,6 @@ const AlertDialogDelete = ({ getMsproductData, master_product_id, master_product
         } catch (error) {
             console.error("Error Delete product", error);
         }
-
     };
     return (
         <Dialog.Root>
@@ -40,13 +38,13 @@ const AlertDialogDelete = ({ getMsproductData, master_product_id, master_product
             </Dialog.Trigger>
 
             <Dialog.Content maxWidth="450px">
-                <Dialog.Title>Delete Category</Dialog.Title>
+                <Dialog.Title>Delete Box</Dialog.Title>
                 <Flex direction="column" gap="3">
                     <label>
-                        <Text size="2">Id : <Strong>{master_product_id}</Strong></Text>
+                        <Text size="2">Id : <Strong>{master_box_id}</Strong></Text>
                     </label>
                     <label>
-                        <Text size="2"> <Strong> Before Category name : </Strong>{master_product_name}</Text>
+                        <Text size="2"> <Strong> Before Category name : </Strong>{master_box_name}</Text>
                     </label>
                 </Flex>
                 <Flex gap="3" mt="4" justify="end">
@@ -56,7 +54,7 @@ const AlertDialogDelete = ({ getMsproductData, master_product_id, master_product
                         </Button>
                     </Dialog.Close>
                     <Dialog.Close>
-                        <Button onClick={handleDeleteMsproduct}>Save</Button>
+                        <Button onClick={handleDeleteMsbox}>Save</Button>
                     </Dialog.Close>.
                 </Flex>
             </Dialog.Content>

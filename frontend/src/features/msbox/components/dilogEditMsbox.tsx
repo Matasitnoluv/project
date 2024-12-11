@@ -1,16 +1,16 @@
 import { Text, Dialog, Button, Flex, TextField } from "@radix-ui/themes";
-import { patchMsproduct } from "@/services/msproduct.services"
+import { patchMsbox } from "@/services/msbox.services";
 import { useState } from "react";
 
-type DialogMsproductProps = {
-    getMsproductData: Function;
-    master_product_id: string;
-    master_product_name: string;
-    scale_product: string;
+type DialogMsboxProps = {
+    getMsboxData: Function;
+    master_box_id: string;
+    master_box_name: string;
+    scale_box: string;
     height: number;
     length: number;
     width: number;
-    cubic_centimeter_product: number;
+    cubic_centimeter_box: number;
     update_by: string;
     update_date: string;
     description: string;
@@ -18,53 +18,53 @@ type DialogMsproductProps = {
 }
 
 const DialogEdit = ({
-    getMsproductData,
-    master_product_id,
-    master_product_name,
-    scale_product,
+    getMsboxData,
+    master_box_id,
+    master_box_name,
+    scale_box,
     height,
     length,
     width,
-    cubic_centimeter_product,
+    cubic_centimeter_box,
     update_by,
     update_date,
     description,
     image,
-}: DialogMsproductProps) => {
-    const [patchMaster_product_name, setMaster_product_name] = useState(master_product_name);
-    const [patchScale_product, setScale_product] = useState(scale_product);
+}: DialogMsboxProps) => {
+    const [patchMaster_box_name, setMaster_box_name] = useState(master_box_name);
+    const [patchScale_box, setScale_box] = useState(scale_box);
     const [patchHeight, setHeight] = useState(height);
     const [patchLength, setLength] = useState(length);
     const [patchWidth, setWidth] = useState(width);
-    const [patchCubic_centimeter_product, setCubic_centimeter_product] = useState(cubic_centimeter_product);
+    const [patchCubic_centimeter_box, setCubic_centimeter_box] = useState(cubic_centimeter_box);
     const [patchUpdate_by, setUpdate_by] = useState(update_by);
     const [patchUpdate_date, setUpdate_date] = useState(update_date);
     const [patchDescription, setDescription] = useState(description);
     const [patchImage, setImage] = useState(image);
 
-    const handleUpdateMsproduct = async () => {
-        if (!patchMaster_product_name ||
-            !patchScale_product ||
+    const handleUpdateMsbox = async () => {
+        if (!patchMaster_box_name ||
+            !patchScale_box ||
             !patchUpdate_by ||
             !patchUpdate_date ||
             !patchHeight ||
             !patchLength ||
             !patchWidth ||
-            !patchCubic_centimeter_product ||
+            !patchCubic_centimeter_box ||
             !patchDescription ||
             !patchImage
         ) {
             alert("error Edit");
             return;
         }
-        patchMsproduct({
-            master_product_id,
-            master_product_name: patchMaster_product_name,
-            scale_product: patchScale_product,
+        patchMsbox({
+            master_box_id,
+            master_box_name: patchMaster_box_name,
+            scale_box: patchScale_box,
             height: patchHeight,
             length: patchLength,
             width: patchWidth,
-            cubic_centimeter_product: patchCubic_centimeter_product,
+            cubic_centimeter_box: patchCubic_centimeter_box,
             update_by: patchUpdate_by,
             update_date: patchUpdate_date,
             description: patchDescription,
@@ -74,15 +74,15 @@ const DialogEdit = ({
             .then((response) => {
                 if (response.statusCode === 200) {
                     alert("Update success");
-                    getMsproductData();
+                    getMsboxData();
                 } else if (response.statusCode === 400) {
                     alert(response.message);
-                    setMaster_product_name(master_product_name);
-                    setScale_product(scale_product);
+                    setMaster_box_name(master_box_name);
+                    setScale_box(scale_box);
                     setHeight(height);
                     setLength(length);
                     setWidth(width);
-                    setCubic_centimeter_product(cubic_centimeter_product);
+                    setCubic_centimeter_box(cubic_centimeter_box);
                     setUpdate_by(update_by);
                     setUpdate_date(update_date);
                     setDescription(description);
@@ -111,31 +111,31 @@ const DialogEdit = ({
                             Product ID
                         </Text>
                         <text>
-                            {master_product_id}
+                            {master_box_id}
                         </text>
                     </label>
                 </Flex>
                 <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
-                            Product Name
+                            Box Name
                         </Text>
                         <TextField.Root
-                            defaultValue={master_product_name}
+                            defaultValue={master_box_name}
                             placeholder="Enter your Product name"
-                            onChange={(event) => setMaster_product_name(event.target.value)}
+                            onChange={(event) => setMaster_box_name(event.target.value)}
                         />
                     </label>
                 </Flex>
                 <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
-                            scale_product
+                            scale box
                         </Text>
                         <TextField.Root
-                            defaultValue={scale_product}
+                            defaultValue={scale_box}
                             placeholder="Enter your Scale product"
-                            onChange={(event) => setScale_product(event.target.value)}
+                            onChange={(event) => setScale_box(event.target.value)}
                         />
                     </label>
                 </Flex>
@@ -178,12 +178,12 @@ const DialogEdit = ({
                 <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
-                            cubic_centimeter_product
+                            cubic centimeter box
                         </Text>
                         <TextField.Root
-                            defaultValue={cubic_centimeter_product}
+                            defaultValue={cubic_centimeter_box}
                             placeholder="Enter your cubic_centimeter_product"
-                            onChange={(event) => setCubic_centimeter_product(parseFloat(event.target.value))}
+                            onChange={(event) => setCubic_centimeter_box(parseFloat(event.target.value))}
                         />
                     </label>
                 </Flex>
@@ -242,7 +242,7 @@ const DialogEdit = ({
                         </Button>
                     </Dialog.Close>
                     <Dialog.Close>
-                        <Button onClick={handleUpdateMsproduct}>Save</Button>
+                        <Button onClick={handleUpdateMsbox}>Save</Button>
                     </Dialog.Close>.
                 </Flex>
             </Dialog.Content>

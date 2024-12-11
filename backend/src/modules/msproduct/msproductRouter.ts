@@ -19,7 +19,7 @@ export const msproductRouter = (() => {
         }
     );
 
-    router.put("/update", validateRequest(UpdateMsproductSchema),
+    router.patch("/update", validateRequest(UpdateMsproductSchema),
         async (req: Request, res: Response) => {
             const { master_product_id } = req.body;
             const payload = req.body;

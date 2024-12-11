@@ -19,7 +19,7 @@ export const msboxRouter = (() => {
     }
   );
 
-  router.put("/update", validateRequest(UpdateMsboxSchema),
+  router.patch("/update", validateRequest(UpdateMsboxSchema),
     async (req: Request, res: Response) => {
       const { master_box_id } = req.body;
       const payload = req.body;

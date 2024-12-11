@@ -2,8 +2,9 @@ import { Table, Card, AlertDialog, Text, } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { getMsproduct } from "@/services/msproduct.services";
 import { TypeMsproductAll } from "@/types/response/reponse.msproduct"
-import DialogAdd from "./components/dilogAddmsproduct";
-import DialogEdit from "./components/dilogEditmsproduct"
+import DialogAdd from "./components/dilogAddMsproduct";
+import DialogEdit from "./components/dilogEditMsproduct";
+import AlertDialogDelete from "./components/alertdilogDeleteMsproduct";
 
 export default function MsproductFeature() {
     const [msproduct, setMsproduct] = useState<TypeMsproductAll[]>([]);
@@ -79,23 +80,32 @@ export default function MsproductFeature() {
                                 <Table.Row key={msproduct.master_product_id}>
                                     <Table.RowHeaderCell>{msproduct.master_product_id}</Table.RowHeaderCell>
                                     <Table.Cell>{msproduct.master_product_name}</Table.Cell>
-                                    <Table.Cell>{msproduct.scale_product}</Table.Cell>
+                                    <Table.Cell>{msproduct.length} * {msproduct.width} * {msproduct.height}</Table.Cell>
                                     <Table.Cell>{msproduct.cubic_centimeter_product}</Table.Cell>
-                                    {/* 
+
                                     <Table.Cell>
                                         <DialogEdit
                                             getMsproductData={getMsproductData}
                                             master_product_id={msproduct.master_product_id}
-                                            mster_product_name={msproduct.master_product_name}
+                                            master_product_name={msproduct.master_product_name}
+                                            scale_product={msproduct.scale_product}
+                                            height={msproduct.height}
+                                            length={msproduct.length}
+                                            width={msproduct.width}
+                                            cubic_centimeter_product={msproduct.cubic_centimeter_product}
+                                            update_by={msproduct.create_by}
+                                            update_date={msproduct.update_date}
+                                            description={msproduct.description}
+                                            image={msproduct.image}
                                         />
                                     </Table.Cell>
                                     <Table.Cell>
                                         <AlertDialogDelete
-                                            getCategoriesData={getCategoriesData}
-                                            id={category.id}
-                                            category_name={category.category_name}
+                                            getMsproductData={getMsproduct}
+                                            master_product_id={msproduct.master_product_id}
+                                            master_product_name={msproduct.master_product_name}
                                         />
-                                    </Table.Cell> */}
+                                    </Table.Cell>
                                 </Table.Row>
                             ))}
 

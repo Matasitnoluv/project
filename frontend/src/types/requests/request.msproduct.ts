@@ -18,7 +18,6 @@ export type PayloadUpdateMsproduct = {
     length: number;
     width: number;
     cubic_centimeter_product: number;
-    create_by: string;
     update_by: string;
     update_date: string;
     description: string;

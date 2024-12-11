@@ -1,91 +1,95 @@
 import { Text, Dialog, Button, Flex, TextField, TextArea } from "@radix-ui/themes";
-import { postMsproduct } from "@/services/msproduct.services";
+import { postMsbox } from "@/services/msbox.services";
 import { useState } from "react";
 
-type DialogMsproductProps = {
-    getMsproductData: Function;
+type DialogMsboxProps = {
+    getMsboxData: Function;
 }
 
-const DialogAdd = ({ getMsproductData }: DialogMsproductProps) => {
-    const [master_product_name, setMaster_product_name] = useState("");
-    const [scale_product, setScale_product] = useState("");
+const DialogAdd = ({ getMsboxData }: DialogMsboxProps) => {
+    const [master_box_name, setMaster_box_name] = useState("");
+    const [scale_box, setScale_box] = useState("");
     const [height, setHeight] = useState(0);
     const [length, setLength] = useState(0);
     const [width, setWidth] = useState(0);
-    const [cubic_centimeter_product, setCubic_centimeter_product] = useState(0);
-    const [create_by, setCreate_by] = useState("");
+    const [cubic_centimeter_box, setCubic_centimeter_box] = useState(0);
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
 
-
-    const handleCreateMsproduct = async () => {
-        if (!master_product_name || !scale_product || !height || !length || !width || !cubic_centimeter_product || !create_by || !description || !image) {
-            alert("Please enter a product name.");
+    const handleCreateMsbox = async () => {
+        if (!master_box_name ||
+            !scale_box ||
+            !height ||
+            !length ||
+            !width ||
+            !cubic_centimeter_box ||
+            !description ||
+            !image) {
+            alert("Please enter a box name");
             return;
         }
-        postMsproduct({
-            master_product_name: master_product_name,
-            scale_product,
-            create_by,
-            description,
-            image,
+        postMsbox({
+            master_box_name: master_box_name,
+            scale_box,
             height: height,
             length: length,
             width: width,
-            cubic_centimeter_product: cubic_centimeter_product,
+            cubic_centimeter_box: cubic_centimeter_box,
+            description,
+            image,
         })
             .then((response) => {
                 if (response.statusCode === 200) {
-                    setMaster_product_name("");
-                    setScale_product("");
+                    setMaster_box_name("");
+                    setScale_box("");
                     setHeight(0);
                     setLength(0);
                     setWidth(0);
-                    setCubic_centimeter_product(0);
-                    setCreate_by("");
+                    setCubic_centimeter_box(0);
                     setDescription("");
                     setImage("");
-                    getMsproductData();
+                    getMsboxData();
                 } else if (response.statusCode === 400) {
                     alert(response.message);
+                    console.log(
+                        master_box_name, height, length, width, cubic_centimeter_box, image
+                    )
                 } else {
                     alert("Unexpected error:" + response.message);
                 }
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 console.error("Error createing product", error.response?.date || error.message);
                 alert("Failed to create product. Please try again");
             });
     };
-
     return (
         <Dialog.Root>
             <Dialog.Trigger>
                 <Button size="1">Create</Button>
             </Dialog.Trigger>
             <Dialog.Content maxWidth="450px">
-                <Dialog.Title>Create Product</Dialog.Title>
+                <Dialog.Title>Create Box</Dialog.Title>
                 <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
-                            Product Name
+                            Box Name
                         </Text>
                         <TextField.Root
                             defaultValue=""
-                            placeholder="Enter your Product name"
-                            onChange={(event) => setMaster_product_name(event.target.value)}
+                            placeholder="Enter your Box name"
+                            onChange={(event) => setMaster_box_name(event.target.value)}
                         />
                     </label>
                 </Flex>
                 <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
-                            scale_product
+                            scale_box
                         </Text>
                         <TextField.Root
                             defaultValue=""
-                            placeholder="Enter your secale product"
-                            onChange={(event) => setScale_product(event.target.value)}
+                            placeholder="Enter your scale_box"
+                            onChange={(event) => setScale_box(event.target.value)}
                         />
                     </label>
                 </Flex>
@@ -128,24 +132,12 @@ const DialogAdd = ({ getMsproductData }: DialogMsproductProps) => {
                 <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
-                            cubic_centimeter_product
+                            cubic_centimeter_box
                         </Text>
                         <TextField.Root
                             defaultValue=""
                             placeholder="Enter your CC"
-                            onChange={(event) => setCubic_centimeter_product(parseFloat(event.target.value))}
-                        />
-                    </label>
-                </Flex>
-                <Flex direction="column" gap="3">
-                    <label>
-                        <Text as="div" size="2" mb="1" weight="bold">
-                            create_by
-                        </Text>
-                        <TextField.Root
-                            defaultValue=""
-                            placeholder="Enter your Create By"
-                            onChange={(event) => setCreate_by(event.target.value)}
+                            onChange={(event) => setCubic_centimeter_box(parseFloat(event.target.value))}
                         />
                     </label>
                 </Flex>
@@ -178,13 +170,12 @@ const DialogAdd = ({ getMsproductData }: DialogMsproductProps) => {
                         </Button>
                     </Dialog.Close>
                     <Dialog.Close>
-                        <Button onClick={handleCreateMsproduct}>Save</Button>
+                        <Button onClick={handleCreateMsbox}>Save</Button>
                     </Dialog.Close>.
                 </Flex>
             </Dialog.Content>
         </Dialog.Root>
     )
-
 };
 
 export default DialogAdd
