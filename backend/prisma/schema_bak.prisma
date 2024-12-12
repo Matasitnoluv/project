@@ -16,11 +16,11 @@ enum TokenType {
 
 // User Model
 model users {
-  users_id String @id @default(uuid()) @db.Uuid
+  users_id String @id @default(uuid())
   fullname String?
   age Int
   address String
-  username String
+  username String @unique
   password String
   status_role String
   create_date DateTime @default(now())

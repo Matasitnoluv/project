@@ -165,7 +165,12 @@ const DialogAdd = ({ getMsproductData }: DialogMsproductProps) => {
                             <Text as="div" size="2" mb="1" weight="bold">
                                 image
                             </Text>
-                            <TextArea placeholder="Enter Description…"
+                            <input
+                                type="file"
+                                id="avatar"
+                                name="avatar"
+                                accept="image/png, image/jpeg"
+                                placeholder="Enter Description…"
                                 onChange={(event) => setImage(event.target.value)}
                             />
                         </label>

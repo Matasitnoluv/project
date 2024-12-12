@@ -5,6 +5,7 @@ import CategoriesPage from "@/pages/categories";
 import Formlogin from "@/pages/login";
 import MsproductFeature from "@/features/msproduct";
 import MsboxFeature from "@/features/msbox";
+import CalculationProductAndBoxFeature from "@/features/calculationproductbox";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/msbox",
                 element: <MsboxFeature />,
+            },
+            {
+                path: "/calculationproductbox",
+                element: <CalculationProductAndBoxFeature />,
             },
         ],
     },

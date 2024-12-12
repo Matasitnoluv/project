@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { ResponseStatus, ServiceResponse } from "@common/models/serviceResponse";
 import { userRepository } from "@modules/user/userRepository";
 import { TypePayloaduser } from "@modules/user/userModel";
-import errorMap from 'zod/lib/locales/en';
+import bcrypt from "bcrypt";
 
 export const userService = {
   findAll: async () => {
@@ -27,7 +27,11 @@ export const userService = {
           StatusCodes.BAD_REQUEST
         );
       }
-      const user = await userRepository.create(payload);
+      const hashedPassword = await bcrypt.hash(payload.password, 10);
+      const user = await userRepository.create({
+        ...payload,
+        password: hashedPassword,
+      });
       return new ServiceResponse<users>(
         ResponseStatus.Success,
         "Create user success",

@@ -52,6 +52,20 @@ export const userRepository = {
     return result as Pick<users, Key> | null;
   },
 
+  findByUsername: async (username: string, keys = Keys as Array<keyof users>) => { //Method
+    return prisma.users.findUnique({
+      where: { username: username },
+      select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+    }) as Promise<Pick<users, keyof users> | null>;
+  },
+
+  findByPassword: async (password: string, keys = Keys as Array<keyof users>) => { //Method
+    return prisma.users.findFirst({
+      where: { password: password },
+      select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+    }) as Promise<Pick<users, keyof users> | null>;
+  },
+
   create: async (payload: TypePayloaduser) => {
     const fullname = payload.fullname.trim();
     const setPayload: any = {

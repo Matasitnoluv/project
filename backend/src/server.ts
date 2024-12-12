@@ -14,6 +14,8 @@ import { userRouter } from "@modules/user/userRouter";
 import { msproductRouter } from "@modules/msproduct/msproductRouter";
 import { cal_msboxRouter } from "@modules/cal_msbox/cal_msboxRouter";
 import { cal_msproductRouter } from "@modules/cal_msproduct/cal_msproductRouter";
+import { authRouter } from "@modules/auth/authRouter";
+// import cookieParser from 'cookie-parser';
 
 const prisma = new PrismaClient();
 const logger = pino({ name: "server start" });
@@ -33,8 +35,12 @@ app.use("/v1/users", userRouter);
 app.use("/v1/msproduct", msproductRouter);
 app.use("/v1/cal_msbox", cal_msboxRouter);
 app.use("/v1/cal_msproduct", cal_msproductRouter);
-
+app.use("/v1/auth", authRouter);
 // Error handlers
 app.use(errorHandler());
 
+// Add cookieParser middleware
+// app.use(cookieParser());
+
 export { app, logger };
+
