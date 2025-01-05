@@ -51,8 +51,7 @@ const DialogEdit = ({
             !patchLength ||
             !patchWidth ||
             !patchCubic_centimeter_product ||
-            !patchDescription ||
-            !patchImage
+            !patchDescription
         ) {
             alert("error Edit");
             return;
@@ -101,7 +100,7 @@ const DialogEdit = ({
     return (
         <Dialog.Root>
             <Dialog.Trigger>
-                <Button size="1">Edit </Button>
+                <Button className="bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white font-bold py-2 px-4 rounded shadow-xl" size="2" variant="soft">Edit</Button>
             </Dialog.Trigger>
             <Dialog.Content maxWidth="450px">
                 <Dialog.Title>Edit</Dialog.Title>
@@ -223,7 +222,7 @@ const DialogEdit = ({
                         />
                     </label>
                 </Flex>
-                <Flex direction="column" gap="3">
+                {/* <Flex direction="column" gap="3">
                     <label>
                         <Text as="div" size="2" mb="1" weight="bold">
                             image
@@ -234,7 +233,7 @@ const DialogEdit = ({
                             onChange={(event) => setImage(event.target.value)}
                         />
                     </label>
-                </Flex>
+                </Flex> */}
                 <Flex gap="3" mt="4" justify="end">
                     <Dialog.Close>
                         <Button variant="soft" color="gray">
@@ -242,7 +241,7 @@ const DialogEdit = ({
                         </Button>
                     </Dialog.Close>
                     <Dialog.Close>
-                        <Button onClick={handleUpdateMsproduct}>Save</Button>
+                        <Button onClick={handleUpdateMsproduct} className="bg-red-400 hover:bg-red-500 hover:cursor-pointer text-white font-bold py-2 px-4 rounded shadow-xl">Save</Button>
                     </Dialog.Close>.
                 </Flex>
             </Dialog.Content>

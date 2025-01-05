@@ -15,7 +15,7 @@ export const msproductRouter = (() => {
             const payload = req.body;
             const ServiceResponse = await msproductService.create(payload);
             handleServiceResponse(ServiceResponse, res);
-            //   console.log(payload);
+            console.log(payload);
         }
     );
 

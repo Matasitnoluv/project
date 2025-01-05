@@ -1,4 +1,4 @@
-import { Table, Card, AlertDialog, Text, } from "@radix-ui/themes";
+import { Table, Card, AlertDialog, } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { getMsproduct } from "@/services/msproduct.services";
 import { TypeMsproductAll } from "@/types/response/reponse.msproduct"
@@ -54,11 +54,9 @@ export default function MsproductFeature() {
                     </div>
                     <div>
                         <AlertDialog.Root>
-                            <Text as="div" size="2" weight="bold" color="green">
-                                <DialogAdd
-                                    getMsproductData={getMsproductData}
-                                />
-                            </Text>
+                            <DialogAdd
+                                getMsproductData={getMsproductData}
+                            />
                         </AlertDialog.Root>
                     </div>
                 </div>
@@ -71,7 +69,6 @@ export default function MsproductFeature() {
                                 <Table.ColumnHeaderCell>Name product</Table.ColumnHeaderCell>
                                 <Table.ColumnHeaderCell>Scale product</Table.ColumnHeaderCell>
                                 <Table.ColumnHeaderCell>size product("cc")</Table.ColumnHeaderCell>
-                                <Table.ColumnHeaderCell>Edit</Table.ColumnHeaderCell>
                             </Table.Row>
                         </Table.Header>
 

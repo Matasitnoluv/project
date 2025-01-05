@@ -23,8 +23,7 @@ const DialogAdd = ({ getMsboxData }: DialogMsboxProps) => {
             !length ||
             !width ||
             !cubic_centimeter_box ||
-            !description ||
-            !image) {
+            !description) {
             alert("Please enter a box name");
             return;
         }
@@ -65,7 +64,7 @@ const DialogAdd = ({ getMsboxData }: DialogMsboxProps) => {
     return (
         <Dialog.Root>
             <Dialog.Trigger>
-                <Button size="1">Create</Button>
+                <Button size="2" className="bg-green-400 hover:bg-green-500 hover:cursor-pointer text-white font-bold py-2 px-4 rounded shadow-xl">Create</Button>
             </Dialog.Trigger>
             <Dialog.Content maxWidth="450px">
                 <Dialog.Title>Create Box</Dialog.Title>
@@ -157,8 +156,13 @@ const DialogAdd = ({ getMsboxData }: DialogMsboxProps) => {
                             <Text as="div" size="2" mb="1" weight="bold">
                                 image
                             </Text>
-                            <TextArea placeholder="Enter Description…"
-                                onChange={(event) => setImage(event.target.value)}
+                            <input
+                                disabled
+                                type="file"
+                                id="avatar"
+                                name="avatar"
+                                placeholder="Enter Description…"
+                            // onChange={handleFileChange}
                             />
                         </label>
                     </Flex>
@@ -170,7 +174,7 @@ const DialogAdd = ({ getMsboxData }: DialogMsboxProps) => {
                         </Button>
                     </Dialog.Close>
                     <Dialog.Close>
-                        <Button onClick={handleCreateMsbox}>Save</Button>
+                        <Button onClick={handleCreateMsbox} className="bg-red-400 hover:bg-red-500 hover:cursor-pointer text-white font-bold py-2 px-4 rounded shadow-xl">Save</Button>
                     </Dialog.Close>.
                 </Flex>
             </Dialog.Content>

@@ -54,11 +54,9 @@ export default function MsboxFeature() {
                     </div>
                     <div>
                         <AlertDialog.Root>
-                            <Text as="div" size="2" weight="bold" color="green">
-                                <DialogAdd
-                                    getMsboxData={getMsboxData}
-                                />
-                            </Text>
+                            <DialogAdd
+                                getMsboxData={getMsboxData}
+                            />
                         </AlertDialog.Root>
                     </div>
                 </div>
@@ -103,7 +101,7 @@ export default function MsboxFeature() {
                                         <AlertDialogDelete
                                             getMsboxData={getMsboxData}
                                             master_box_id={msbox.master_box_id}
-                                            master_box_name={msbox.master_box_id}
+                                            master_box_name={msbox.master_box_name}
                                         />
                                     </Table.Cell>
                                 </Table.Row>

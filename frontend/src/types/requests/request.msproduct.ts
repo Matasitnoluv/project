@@ -5,7 +5,6 @@ export type PayloadCreateMasterproduct = {
     length: number;
     width: number;
     cubic_centimeter_product: number;
-    create_by: string;
     description: string;
     image: string;
 };

@@ -1,10 +1,11 @@
 // src/components/CalculationForm.js
 import React from 'react';
+import { Table, Card, Button, } from "@radix-ui/themes";
 
 const CalculationProductAndBoxPage = () => {
     return (
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Calculation Product&Box</h2>
+        <div className="bg-gray-100 p-36 rounded-lg shadow-md h-screen">
+            <h2 className="text-2xl font-bold mb-2">Calculation Product & Box</h2>
             <input
                 type="text"
                 className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md"
@@ -13,54 +14,93 @@ const CalculationProductAndBoxPage = () => {
 
             <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <h3 className="text-lg font-medium mb-2">Product</h3>
-                    <input
-                        type="text"
-                        className="w-full px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                        placeholder="Code product"
-                    />
+                    <h3 className="text-lg font-medium mb-2">
+                        <Button className="bg-green-400 hover:bg-green-500 hover:cursor-pointer
+                         text-white font-bold py-2 px-4 rounded shadow-xl w-20">Product</Button>
+                    </h3>
+                    <Card variant="ghost" className="w-3/4 m-auto">
+                        <Table.Root variant="ghost">
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.ColumnHeaderCell>No.</Table.ColumnHeaderCell>
+                                    <Table.ColumnHeaderCell>Code</Table.ColumnHeaderCell>
+                                    <Table.ColumnHeaderCell>Scale (cm)</Table.ColumnHeaderCell>
+                                    <Table.ColumnHeaderCell>Count</Table.ColumnHeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+
+                            <Table.Body>
+                                {/* {msproduct && msproduct.map((msproduct: TypeMsproductAll) => ( */}
+                                <Table.Row >
+                                    <Table.RowHeaderCell></Table.RowHeaderCell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table.Root>
+                    </Card>
                 </div>
                 <div>
-                    <h3 className="text-lg font-medium mb-2">Box</h3>
-                    <input
-                        type="text"
-                        className="w-full px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                        placeholder="Code box"
-                    />
+                    <h3 className="text-lg font-medium mb-2">
+                        <Button
+                            className="bg-green-400 hover:bg-green-500 hover:cursor-pointer
+                                       text-white font-bold py-2 px-4 rounded shadow-xl w-20 ">Box</Button>
+                    </h3>
+                    <Card variant="ghost" className="w-3/4 m-auto">
+                        <Table.Root variant="ghost">
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.ColumnHeaderCell>No.</Table.ColumnHeaderCell>
+                                    <Table.ColumnHeaderCell>Code</Table.ColumnHeaderCell>
+                                    <Table.ColumnHeaderCell>Scale (cm)</Table.ColumnHeaderCell>
+                                    <Table.ColumnHeaderCell>Count</Table.ColumnHeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+
+                            <Table.Body>
+                                {/* {msproduct && msproduct.map((msproduct: TypeMsproductAll) => ( */}
+                                <Table.Row >
+                                    <Table.RowHeaderCell></Table.RowHeaderCell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table.Root>
+                    </Card>
                 </div>
             </div>
 
-            <h3 className="text-lg font-medium mb-2">Calculation</h3>
-            <div className="grid grid-cols-5 gap-4">
-                <input
-                    type="text"
-                    className="col-span-1 px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                    placeholder="No. box"
-                />
-                <input
-                    type="text"
-                    className="col-span-1 px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                    placeholder="Codebox"
-                />
-                <input
-                    type="text"
-                    className="col-span-1 px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                    placeholder="Product"
-                />
-                <input
-                    type="text"
-                    className="col-span-1 px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                    placeholder="CodeProduct"
-                />
-                <input
-                    type="text"
-                    className="col-span-1 px-4 py-2 mb-2 border border-gray-300 rounded-md"
-                    placeholder="Count"
-                />
+            <h3 className="text-lg font-medium mb-2">
+                <Button
+                    className="bg-green-400 hover:bg-green-500 hover:cursor-pointer
+                                       text-white font-bold py-2 px-4 rounded shadow-xl w-30 mt-10">Calculation</Button>
+            </h3>
+            <div className="grid grid-cols-1/2 gap-3">
+                <Card variant="ghost" className="w-3/4">
+                    <Table.Root variant="ghost">
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.ColumnHeaderCell>No.</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>Code</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>Scale (cm)</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell>Count</Table.ColumnHeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+
+                        <Table.Body>
+                            {/* {msproduct && msproduct.map((msproduct: TypeMsproductAll) => ( */}
+                            <Table.Row >
+                                <Table.RowHeaderCell></Table.RowHeaderCell>
+                                <Table.Cell></Table.Cell>
+                                <Table.Cell></Table.Cell>
+                                <Table.Cell></Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Root>
+                </Card>
             </div>
-            <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-                Calculate
-            </button>
         </div>
     );
 };
